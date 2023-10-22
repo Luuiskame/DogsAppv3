@@ -1,6 +1,7 @@
 const axios = require('axios')
 const {Dog} = require('../db')
 const URL = "https://api.thedogapi.com/v1/breeds/"
+// const imgUrl = "https://api.thedogapi.com/v1/images/"
 
 async function getByName(req,res){
     const {name} = req.query
@@ -10,9 +11,26 @@ async function getByName(req,res){
             res.status(200).json(dbCall)
         } else {
             const apiCall = await getDogApi(name,res)
-            res.status(200).send(apiCall)
-        }
+            
+            if(apiCall.length > 0){
+                const dog = apiCall[0]
 
+                const imgId = dog.reference_image_id
+
+                const imageUrl = await axios(`https://api.thedogapi.com/v1/images/${imgId}`)
+
+                const dogData={
+                    name: dog.name,
+                    id: dog.id,
+                    height: dog.height.metric,
+                    weight: dog.weight.metric,
+                    life_span: dog.life_span,
+                    temperament: dog.temperament,
+                    image: imageUrl.data.url
+                }
+                res.status(200).send(dogData)
+            }
+        }
 
     } catch (error) {
         res.status(500).json({error: error.message})
