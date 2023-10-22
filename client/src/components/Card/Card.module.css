@@ -1,0 +1,14 @@
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.imgContainer {
+    width: 16em;
+    height: 40px;
+}
+
+.dogImg{
+    width: 100%;
+}

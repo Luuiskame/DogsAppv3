@@ -26,6 +26,7 @@ async function getDogs(req,res){
                 weight: dog.weight.metric,
                 life_span: dog.life_span,
                 image: imageUrl,
+                temperament: dog.temperament
             };
         })
 

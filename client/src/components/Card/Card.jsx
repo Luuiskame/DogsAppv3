@@ -1,18 +1,29 @@
 
 import { Link } from "react-router-dom"
+import styles from './Card.module.css'
 
-function Card({id,image,name}){
+function Card({id,image,name,weight,temperament}){
 
     return(
-        <div key={id}>
+        <div 
+        className={styles.cardContainer}
+        key={id}>
+            
+            <div className={styles.imgContainer}>
+                <img className={styles.dogImg} src={image} alt={name} />
+            </div>
+            
+            <div className={styles.textContainer}>
+            <p>ID: {id}</p>
+            <h2>NAME: {name}</h2>
+            <p>WEIGHT: {weight}</p>
+            <p>temperament: {temperament}</p>
+            </div>
+
             <Link to={`/detail/${id}`}>
             <button>About</button>
             </Link>
-            <p>ID: {id}</p>
-            <div>
-                <img src={image} alt={name} />
-            </div>
-            <h2>NAME: {name}</h2>
+
         </div>
     )
 } 

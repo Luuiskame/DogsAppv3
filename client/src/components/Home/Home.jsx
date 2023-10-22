@@ -31,6 +31,8 @@ function Home(){
                     id={dog.id}
                     name={dog.name}
                     image={dog.image}
+                    weight={dog.weight}
+                    temperament={dog.temperament}
                     
                     />
                 )
