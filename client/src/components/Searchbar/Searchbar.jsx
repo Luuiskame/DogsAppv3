@@ -14,7 +14,7 @@ function Searchbar(){
     }
    
     return(
-        <div className={styles.searchbarContainer}>
+        <nav className={styles.searchbarContainer}>
         <input 
         className={styles.searchbar}
         type="search" 
@@ -28,7 +28,7 @@ function Searchbar(){
             <button className={styles.addRandomBtn}>random</button>
         </div>
 
-    </div>
+    </nav>
     )
 }
 

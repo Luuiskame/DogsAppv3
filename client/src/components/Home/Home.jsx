@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 // components
 import Card from '../Card/Card'
-import Searchbar from "../Searchbar/Searchbar"
+import Header from "../Header/Header"
 
 function Home(){
     // getting the dogs global stage and dispatch method
@@ -23,7 +23,7 @@ function Home(){
 
     return(
         <div>
-           <Searchbar/>
+           <Header/>
             {dogs.map(dog=>{
                 return(
                     <Card
