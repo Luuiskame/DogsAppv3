@@ -11,21 +11,16 @@ async function getDogs(req,res){
         const response = await axios(`${URL}?api_key=${API_KEY}&limit=10`)
         const data = response.data
 
-        // function to get the image url
-        const getImgUrl = async (reference_image_id)=>{
-            const imgResponse = await axios(`${imgUrl}${reference_image_id}`)
-            return imgResponse.data.url
-        }
 
         const dogPromises = data.map(async (dog)=>{
-            const imageUrl = await getImgUrl(dog.reference_image_id)
+   
             return {
                 name: dog.name,
                 id: dog.id,
                 height: dog.height.metric,
                 weight: dog.weight.metric,
                 life_span: dog.life_span,
-                image: imageUrl,
+                image: dog.image.url,
                 temperament: dog.temperament
             };
         })
