@@ -1,4 +1,4 @@
-import {GET_DOGS, GET_DOGS_BY_NAME} from './action-types'
+import {GET_DOGS, GET_DOGS_BY_NAME, GET_ALL_TEMPERS,ORDER, FILTER_BY_TEMPER, FILTER_ALPHABETICALLY} from './action-types'
 import axios from 'axios'
 
 export const getDogs = ()=> async(dispatch)=>{
@@ -30,3 +30,42 @@ export const getDogsByName = (name)=> async(dispatch)=>{
         window.alert(error)
     }
 }
+
+export const getAllTempers = ()=> async(dispatch)=>{
+    try {
+        const response = await axios("http://localhost:3001/dogsapp/temperament")
+        const temperaments = response.data
+        console.log(temperaments)
+
+        dispatch({
+            type: GET_ALL_TEMPERS,
+            payload: temperaments
+        })
+
+    } catch (error) {
+        
+    }
+}
+
+//? ORDER
+ 
+export const orderCards = (order)=>{
+    return {
+        type: ORDER, 
+        payload: order
+    }
+}
+
+//? FILTER
+
+export const filterByTemper = (temper)=>{
+    return {
+        type: FILTER_BY_TEMPER,
+        payload: temper
+    }
+}
+
+export const filterAlphabetically = (filterValue) => ({
+    type: FILTER_ALPHABETICALLY,
+    payload: filterValue,
+  });

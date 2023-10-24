@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 
 //redux actions
-import { getDogs } from "../../../redux/actions"
+import { getDogs, getAllTempers } from "../../../redux/actions"
 
 // hooks
 import { useState, useEffect } from "react"
@@ -18,6 +18,7 @@ function Home(){
 
     useEffect(()=>{
         dispatch(getDogs())
+        dispatch(getAllTempers())
     },[])
     console.log(dogs)
 
