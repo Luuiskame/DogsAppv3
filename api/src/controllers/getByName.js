@@ -3,6 +3,10 @@ const {Dog} = require('../db')
 const URL = "https://api.thedogapi.com/v1/breeds/"
 // const imgUrl = "https://api.thedogapi.com/v1/images/"
 
+require('dotenv').config()
+
+const {API_KEY} = process.env
+
 async function getByName(req,res){
     const {name} = req.query
     try {
@@ -15,9 +19,6 @@ async function getByName(req,res){
             if(apiCall.length > 0){
                 const dog = apiCall[0]
 
-                const imgId = dog.reference_image_id
-
-                const imageUrl = await axios(`https://api.thedogapi.com/v1/images/${imgId}`)
 
                 const dogData={
                     name: dog.name,
@@ -26,7 +27,7 @@ async function getByName(req,res){
                     weight: dog.weight.metric,
                     life_span: dog.life_span,
                     temperament: dog.temperament,
-                    image: imageUrl.data.url
+                    image: dog.image.url
                 }
                 res.status(200).send(dogData)
             }
@@ -49,7 +50,7 @@ const getDogFromDb = async(name)=>{
 const getDogApi = async (name) => {
     try {
         const searchNameCleaned = name.replace(/\s/g, '').toLowerCase()
-      const {data} = await axios.get(`${URL}`);
+      const {data} = await axios.get(`${URL}?api_key=${API_KEY}`);
 
       const info = data.filter((perro)=>{return perro.name.replace(/\s/g, '').toLowerCase() == searchNameCleaned})
       return info
