@@ -29,5 +29,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    createdAtDatabase:{
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }, 
+  }, {
+    timestamps: false
   });
 };
