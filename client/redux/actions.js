@@ -1,4 +1,4 @@
-import {GET_DOGS, GET_DOGS_BY_NAME, GET_ALL_TEMPERS,ORDER, FILTER_BY_TEMPER, FILTER_ALPHABETICALLY, POST_DOGS} from './action-types'
+import {GET_DOGS, GET_DOGS_BY_NAME, GET_ALL_TEMPERS,ORDER, FILTER_BY_TEMPER, FILTER_ALPHABETICALLY, POST_DOGS, GET_DOGS_FROM_DB} from './action-types'
 import axios from 'axios'
 
 export const getDogs = ()=> async(dispatch)=>{
@@ -84,4 +84,9 @@ export const filterByTemper = (temper)=>{
 export const filterAlphabetically = (filterValue) => ({
     type: FILTER_ALPHABETICALLY,
     payload: filterValue,
-  });
+});
+
+export const filterFromDb = (filteredValue)=>({
+    type: GET_DOGS_FROM_DB,
+    payload: filteredValue
+})

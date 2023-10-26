@@ -5,6 +5,7 @@ export const POST_DOGS = "POST_DOGS"
 
 //Filters
 export const FILTER_BY_TEMPER = "FILTER_BY_TEMPER"
+export const GET_DOGS_FROM_DB = "GET_DOGS_FROM_DB"
 //order
 export const ORDER = "ORDER"
 export const FILTER_ALPHABETICALLY = "FILTER_ALPHABETICALLY"

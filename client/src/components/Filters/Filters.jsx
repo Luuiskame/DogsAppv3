@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./Filters.module.css";
 
-import { orderCards, filterByTemper, filterAlphabetically } from "../../../redux/actions";
+import { orderCards, filterByTemper, filterAlphabetically, filterFromDb } from "../../../redux/actions";
 
 function Filters() {
     const dispatch = useDispatch()
@@ -21,8 +21,18 @@ function Filters() {
         const filterValue = event.target.value; 
         dispatch(filterAlphabetically(filterValue));
       };
+
+    const handleFilterDb = (event)=>{
+      console.log(event.target.value)
+      dispatch(filterFromDb(event.target.value))
+    }
   return (
     <div className={styles.filtersContainer}>
+      <select onChange={handleFilterDb}>
+        <option value="api">API</option>
+        <option value="db">my dogs</option>
+      </select>
+
       <select onChange={handleAlphabeticalFilter}>
         <option value="abc">A-Z</option>
         <option value="xyz">Z-A</option>
@@ -35,12 +45,11 @@ function Filters() {
       </select>
 
       <select onChange={handleFilterByTemper}>
-        {allTempers.map((temper) => (
-          <option key={temper} value={temper}>
-            {temper}
-          </option>
-        ))}
-      </select>
+                <option value="All">All</option>
+           {allTempers.map((temperament, index)=>{
+            return <option key={index} value={index}>{temperament}</option>
+           })}
+           </select>
     </div>
   );
 }

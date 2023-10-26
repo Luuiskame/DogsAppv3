@@ -2,6 +2,8 @@
 import { Link } from "react-router-dom"
 import styles from './Card.module.css'
 
+const defaultImage = '../../../public/Img/dogDefault_img.png'
+
 function Card({id,image,name,weight,temperament}){
 
     return(
@@ -10,7 +12,7 @@ function Card({id,image,name,weight,temperament}){
         key={id}>
             
             <div className={styles.imgContainer}>
-                <img className={styles.dogImg} src={image} alt={name} />
+                <img className={styles.dogImg} src={image || defaultImage} alt={name} />
             </div>
             
             <div className={styles.textContainer}>

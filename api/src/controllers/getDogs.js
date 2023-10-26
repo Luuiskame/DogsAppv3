@@ -27,6 +27,7 @@ async function getDogs(req, res) {
       life_span: dog.life_span,
       image: dog.image.url,
       temperament: dog.temperament,
+      createdAtDatabase: false
     }));
 
     const dogs = dbDogs.map((dbDog) => ({
@@ -37,6 +38,7 @@ async function getDogs(req, res) {
       life_span: dbDog.life_span,
       image: dbDog.image,
       temperament: dbDog.temperaments.map((temperament) => temperament.name).join(", "),
+      createdAtDatabase: true,
     }));
 
     // Combine both sets of dogs

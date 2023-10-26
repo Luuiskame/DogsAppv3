@@ -8,73 +8,55 @@ require('dotenv').config()
 const {API_KEY} = process.env
 
 const getByName = async (req, res) => {
-    const { name } = req.query;
-    try {
-      const dbCall = await getDogFromDb(name);
-  
-      const temperamentString = dbCall
-        ? dbCall.temperaments.map((temperament) => temperament.name).join(", ")
-        : "";
-  
-      if (!dbCall) {
-        const apiCall = await getDogApi(name, res);
-  
-        if (apiCall.length > 0) {
-          const dog = apiCall[0];
-          dog.temperament = dog.temperament || ""; // Ensure temperament is not null
-  
-          const dogData = {
-            name: dog.name,
-            id: dog.id,
-            height: dog.height.metric,
-            weight: dog.weight.metric,
-            life_span: dog.life_span,
-            temperament: dog.temperament.split(", ").map((t) => t.trim()).join(", "),
-            image: dog.image.url,
-          };
-  
-          res.status(200).json(dogData);
-        }
-      } else {
-        const dogData = {
-          name: dbCall.name,
-          id: dbCall.id,
-          height: dbCall.height,
-          weight: dbCall.weight,
-          life_span: dbCall.life_span,
-          temperament: temperamentString,
-          image: dbCall.image,
-        };
-  
-        res.status(200).json(dogData);
-      }
-    } catch (error) {
+  const { name } = req.query;
+  try {
+      const dbDogs = await getDogsFromDb(name);
+      const apiDogs = await getDogsFromApi(name, res);
+      
+      // Combinar los resultados de la base de datos y la API, eliminando duplicados por ID
+      const combinedDogs = [...dbDogs, ...apiDogs];
+      const uniqueDogs = Array.from(new Set(combinedDogs.map(dog => dog.id)))
+          .map(id => combinedDogs.find(dog => dog.id === id));
+
+      res.status(200).json(uniqueDogs);
+  } catch (error) {
       res.status(500).json({ error: error.message });
-    }
-  };
-  
-
-const getDogFromDb = async(name)=>{
-    const dogDb = await Dog.findOne({
-        where:{
-            name:name
-        },
-        include: Temperament
-    })
-    return dogDb
-}
-
-const getDogApi = async (name) => {
-    try {
-        const searchNameCleaned = name.replace(/\s/g, '').toLowerCase()
-      const {data} = await axios.get(`${URL}?api_key=${API_KEY}`);
-
-      const info = data.filter((perro)=>{return perro.name.replace(/\s/g, '').toLowerCase() == searchNameCleaned})
-      return info
-    } catch (error) {
-      console.error("Error when calling the API:", error);
-      return null;
-    }
   }
+};
 
-module.exports = getByName
+const getDogsFromDb = async (name) => {
+  const dogsFromDb = await Dog.findAll({
+      where: {
+          name: name
+      },
+      include: Temperament
+  });
+
+  return dogsFromDb;
+};
+
+const getDogsFromApi = async (name, res) => {
+  try {
+      const searchNameCleaned = name.replace(/\s/g, '').toLowerCase();
+      const { data } = await axios.get(`${URL}?api_key=${API_KEY}`);
+
+      const dogsFromApi = data
+          .filter((dog) => dog.name.replace(/\s/g, '').toLowerCase() === searchNameCleaned)
+          .map((dog) => ({
+              name: dog.name,
+              id: dog.id,
+              height: dog.height.metric,
+              weight: dog.weight.metric,
+              life_span: dog.life_span,
+              temperament: dog.temperament,
+              image: dog.image.url
+          }));
+
+      return dogsFromApi;
+  } catch (error) {
+      console.error("Error when calling the API:", error);
+      return [];
+  }
+};
+
+module.exports = getByName;

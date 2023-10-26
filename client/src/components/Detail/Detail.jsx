@@ -3,6 +3,8 @@ import {useParams} from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+const defaultImage = '../../../public/Img/dogDefault_img.png'
+
 //? styles
 import styles from './Detail.module.css'
 
@@ -30,7 +32,7 @@ function Detail(){
         </Link>
 
             <div className={styles.imgDetailContainer}>
-                <img className={styles.detailImg} src={dogs.image} alt={dogs.name}/>
+                <img className={styles.detailImg} src={dogs.image || defaultImage} alt={dogs.name}/>
             </div>
             <h2>ID: {dogs.id}</h2>
             <h2>NAME :{dogs.name}</h2>

@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
     },
     createdAtDatabase:{
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: true
     }, 
   }, {
     timestamps: false

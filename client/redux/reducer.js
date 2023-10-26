@@ -5,11 +5,13 @@ import {
   GET_DOGS_BY_NAME,
   ORDER,
   FILTER_ALPHABETICALLY,
+  GET_DOGS_FROM_DB,
 } from "./action-types";
 
 const initalState = {
   dogs: [],
   allDogs: [],
+  dogsOrigin: "All",
   allTempers: [],
 };
 
@@ -24,7 +26,7 @@ const reducer = (state = initalState, action) => {
     case GET_DOGS_BY_NAME:
       return {
         ...state,
-        dogs: [action.payload, ...state.dogs],
+        dogs: action.payload,
       };
 
     case GET_ALL_TEMPERS:
@@ -54,13 +56,15 @@ const reducer = (state = initalState, action) => {
 
     //filter
     case FILTER_BY_TEMPER:
-      const filteredByTemper = state.allDogs.filter(
-        (dog) => dog.temperament === action.payload
-      );
-      return {
-        ...state,
-        dogs: filteredByTemper,
-      };
+      const index = action.payload
+      const temperToFilter = state.allTempers[index]
+      const filteredDogsByTemper = state.dogs.filter((dog) => dog.temperament && dog.temperament.includes(temperToFilter))              
+      if(action.payload==="All"){
+      return{...state, dogs: state.allDogs }
+    }
+    return {
+      ...state, 
+      dogs: filteredDogsByTemper}
 
     case FILTER_ALPHABETICALLY:
       let filteredDogs;
@@ -76,6 +80,17 @@ const reducer = (state = initalState, action) => {
       return {
         ...state,
         dogs: filteredDogs,
+      };
+
+    case GET_DOGS_FROM_DB:
+      const newDogsOrigin = action.payload; // API / DB
+      const filteredDogsOrigin = state.allDogs.filter((dog) => {
+        return newDogsOrigin === "api" ? !dog.createdAtDatabase : dog.createdAtDatabase;
+      });
+      return { 
+        ...state, 
+        dogs: filteredDogsOrigin, 
+        dogsOrigin: newDogsOrigin 
       };
 
     default:
