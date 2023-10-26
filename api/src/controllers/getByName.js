@@ -1,5 +1,5 @@
 const axios = require('axios')
-const {Dog} = require('../db')
+const {Dog, Temperament} = require('../db')
 const URL = "https://api.thedogapi.com/v1/breeds/"
 // const imgUrl = "https://api.thedogapi.com/v1/images/"
 
@@ -7,42 +7,59 @@ require('dotenv').config()
 
 const {API_KEY} = process.env
 
-async function getByName(req,res){
-    const {name} = req.query
+const getByName = async (req, res) => {
+    const { name } = req.query;
     try {
-        const dbCall = await getDogFromDb(name)
-        if(dbCall){
-            res.status(200).json(dbCall)
-        } else {
-            const apiCall = await getDogApi(name,res)
-            
-            if(apiCall.length > 0){
-                const dog = apiCall[0]
-
-
-                const dogData={
-                    name: dog.name,
-                    id: dog.id,
-                    height: dog.height.metric,
-                    weight: dog.weight.metric,
-                    life_span: dog.life_span,
-                    temperament: dog.temperament,
-                    image: dog.image.url
-                }
-                res.status(200).send(dogData)
-            }
+      const dbCall = await getDogFromDb(name);
+  
+      const temperamentString = dbCall
+        ? dbCall.temperaments.map((temperament) => temperament.name).join(", ")
+        : "";
+  
+      if (!dbCall) {
+        const apiCall = await getDogApi(name, res);
+  
+        if (apiCall.length > 0) {
+          const dog = apiCall[0];
+          dog.temperament = dog.temperament || ""; // Ensure temperament is not null
+  
+          const dogData = {
+            name: dog.name,
+            id: dog.id,
+            height: dog.height.metric,
+            weight: dog.weight.metric,
+            life_span: dog.life_span,
+            temperament: dog.temperament.split(", ").map((t) => t.trim()).join(", "),
+            image: dog.image.url,
+          };
+  
+          res.status(200).json(dogData);
         }
-
+      } else {
+        const dogData = {
+          name: dbCall.name,
+          id: dbCall.id,
+          height: dbCall.height,
+          weight: dbCall.weight,
+          life_span: dbCall.life_span,
+          temperament: temperamentString,
+          image: dbCall.image,
+        };
+  
+        res.status(200).json(dogData);
+      }
     } catch (error) {
-        res.status(500).json({error: error.message})
+      res.status(500).json({ error: error.message });
     }
-}
+  };
+  
 
 const getDogFromDb = async(name)=>{
     const dogDb = await Dog.findOne({
         where:{
             name:name
-        }
+        },
+        include: Temperament
     })
     return dogDb
 }

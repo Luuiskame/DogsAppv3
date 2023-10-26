@@ -1,53 +1,63 @@
-const axios = require('axios')
-const URL = "https://api.thedogapi.com/v1/breeds/"
-const {Dog} = require('../db')
+const axios = require("axios");
+const URL = "https://api.thedogapi.com/v1/breeds";
+const { Dog, Temperament } = require("../db");
 
-async function getDogById(req,res){
-    try {
-        const {id} = req.params
+require("dotenv").config();
 
-        if(!isNaN(id)){
-            const response = await axios(`${URL}${id}`)
+const { API_KEY } = process.env;
 
-            const dog = response.data
+async function getDogById(req, res) {
+  try {
+    const { id } = req.params;
 
-            const imgId = dog.reference_image_id
+    if (!isNaN(id)) {
+      const response = await axios(`${URL}?api_key=${API_KEY}`);
 
-            const imgUrl = await axios(`https://api.thedogapi.com/v1/images/${imgId}`)
+      const data = response.data;
 
-            const dogData={
-                name: dog.name,
-                id: dog.id,
-                height: dog.height.metric,
-                weight: dog.weight.metric,
-                life_span: dog.life_span,
-                temperament: dog.temperament,
-                image: imgUrl.data.url
-            }
-    
-            res.status(200).json(dogData)
-        } else {
-            const result = await getDogDb(id,res)
-            res.status(200).json(result)
-        }
+      const dog = data.find((dog) => dog.id === +id);
 
-        
-    } catch (error) {
-        res.status(500).json({error: error.message})
+      const dogData = {
+        name: dog.name,
+        id: dog.id,
+        height: dog.height.metric,
+        weight: dog.weight.metric,
+        life_span: dog.life_span,
+        temperament: dog.temperament,
+        image: dog.image.url,
+      };
+
+      res.status(200).json(dogData);
+    } else {
+      const result = await getDogDb(id, res);
+      const temperamentString = result
+        ? result.temperaments.map((temperament) => temperament.name).join(", ")
+        : "";
+      const dogData = {
+        name: result.name,
+        id: result.id,
+        height: result.height,
+        weight: result.weight,
+        life_span: result.life_span,
+        temperament: temperamentString,
+        image: result.image,
+      };
+      res.status(200).json(dogData);
     }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 }
 
-async function getDogDb(id,res){
-    try {
-        const searchDogDb = await Dog.findByPk(id)
-        if(!searchDogDb){
-            res.status(500).send("we couldn't find the dog with the provided ID")
-        }
-        return searchDogDb
-    } catch (error) {
-        res.status(500).json({error: error.message})
+async function getDogDb(id, res) {
+  try {
+    const searchDogDb = await Dog.findByPk(id, { include: Temperament });
+    if (!searchDogDb) {
+      res.status(500).send("we couldn't find the dog with the provided ID");
     }
+    return searchDogDb;
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 }
-
-
-module.exports = getDogById
+module.exports = getDogById;

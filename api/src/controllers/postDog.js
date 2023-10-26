@@ -2,9 +2,9 @@ const {Dog, Temperament} = require('../db')
 
 async function postDog(req,res){
     try {
-        const {name, height, weight, image, life_span, temperament} = req.body
+        const {name, height, weight, life_span, temperaments} = req.body
        
-        if(!name || !height || !weight || !image || !life_span || !temperament){
+        if(!name || !height || !weight || !life_span || !temperaments ){
             res.status(400).send("not sending all data required")
         }
 
@@ -12,7 +12,6 @@ async function postDog(req,res){
             name,
             height,
             weight,
-            image,
             life_span
         })
 
@@ -22,7 +21,7 @@ async function postDog(req,res){
 
         const foundTemperaments = await Temperament.findAll({
             where: {
-                name: temperament
+                name: temperaments
             },
         })
 
@@ -36,7 +35,7 @@ async function postDog(req,res){
         res.status(200).json(newDog)
 
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(500).json({error: error.message})
     }
 }
 
