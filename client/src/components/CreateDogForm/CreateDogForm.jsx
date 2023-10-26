@@ -1,50 +1,114 @@
 import { useState, useEffect } from "react";
-import {useSelector, useDispatch} from 'react-redux'
-
-//? styles
-// import styles from './CreateDogForm/CreateDogForm.module.css'
-
-// calling actions
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import CreateDogValidation from './CreateDogValidation';
 import { getAllTempers } from "../../../redux/actions";
 
-function CreateDogForm(){
-    const temperaments = useSelector(state=> state.allTempers)
-    const dispatch = useDispatch()
+function CreateDogForm() {
+  const temperaments = useSelector(state => state.allTempers);
+  const dispatch = useDispatch();
 
-    useEffect(()=>{
-        dispatch(getAllTempers())
-    },[])
-    return (
-      <form>
-        <label htmlFor="name">Name:</label>
-        <input type="text" name="name" />
+  useEffect(() => {
+    dispatch(getAllTempers());
+  }, []);
 
-        <label htmlFor="height">Height:</label>
-        <input type="range" min="5" max="200" name="height" />
+  const [formData, setFormData] = useState({
+    name: "",
+    height: "",
+    weight: "",
+    life_span: "",
+    temperaments: [], // Usar un array para almacenar temperamentos seleccionados
+  });
 
-        <label htmlFor="weight">Weight:</label>
-        <input type="range" min="5" max="200" name="weight" />
+  const [errors, setErrors] = useState({});
 
-        <label htmlFor="life_span">Life span:</label>
-        <input type="range" min="0" max="200" name="life_span" />
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
 
-        <div >
-        <label htmlFor="temperaments">Temperaments:</label>
+    setFormData((prevData) => {
+      if (type === "checkbox") {
+        // Si es una casilla de verificación, maneja la selección de temperamentos
+        if (checked) {
+          return {
+            ...prevData,
+            temperaments: [...prevData.temperaments, value],
+          };
+        } else {
+          return {
+            ...prevData,
+            temperaments: prevData.temperaments.filter((temp) => temp !== value),
+          };
+        }
+      } else {
+        // Para otros campos, simplemente actualiza el valor
+        return {
+          ...prevData,
+          [name]: value,
+        };
+      }
+    });
+
+    setErrors(
+      CreateDogValidation({
+        ...formData,
+        [name]: value,
+      })
+    );
+  };
+
+  const sendDog = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/dogsapp/dogs",
+        formData
+      );
+
+      if (response.data) {
+        console.log("Dog created", response.data);
+      } else {
+        console.log("Server couldn't provide an ID for this dog");
+      }
+    } catch (error) {
+      console.log("Error when creating dog", error, formData);
+    }
+  };
+
+  return (
+    <form onSubmit={sendDog}>
+      <label htmlFor="name">Name:</label>
+      <input type="text" name="name" onChange={handleChange} />
+      {errors.name && <p>{errors.name}</p>}
+
+      <label htmlFor="height">Height:</label>
+      <input type="text" name="height" onChange={handleChange} />
+
+      <label htmlFor="weight">Weight:</label>
+      <input type="text" name="weight" onChange={handleChange} />
+
+      <label htmlFor="life_span">Life Span:</label>
+      <input type="text" name="life_span" onChange={handleChange} />
+
+      <div>
+        <label>Temperaments:</label>
         {temperaments.map((temper) => (
           <label key={temper}>
             <input
               type="checkbox"
-              name="types"
+              name="temperaments"
               value={temper}
+              checked={formData.temperaments.includes(temper)} // Marcar las casillas de verificación seleccionadas
+              onChange={handleChange}
             />
             {temper}
           </label>
         ))}
       </div>
 
-        <button>Create</button>
-      </form>
-    );
+      <button type="submit">Create</button>
+    </form>
+  );
 }
 
-export default CreateDogForm
+export default CreateDogForm;

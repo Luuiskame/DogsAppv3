@@ -1,4 +1,4 @@
-import {GET_DOGS, GET_DOGS_BY_NAME, GET_ALL_TEMPERS,ORDER, FILTER_BY_TEMPER, FILTER_ALPHABETICALLY} from './action-types'
+import {GET_DOGS, GET_DOGS_BY_NAME, GET_ALL_TEMPERS,ORDER, FILTER_BY_TEMPER, FILTER_ALPHABETICALLY, POST_DOGS} from './action-types'
 import axios from 'axios'
 
 export const getDogs = ()=> async(dispatch)=>{
@@ -43,7 +43,23 @@ export const getAllTempers = ()=> async(dispatch)=>{
         })
 
     } catch (error) {
-        
+        Window.alert(error)
+    }
+}
+
+export const postDogs = (dog)=> async(dispatch)=>{
+    try {
+        const endpoint = "http://localhost:3001/dogsapp/dogs"
+        const response = await axios.post(endpoint, dog)
+        const data = response.data
+        console.log(dog)
+
+        dispatch({
+            type: postDogs,
+            payload: data
+        })
+    } catch (error) {
+        window.alert(error)
     }
 }
 
