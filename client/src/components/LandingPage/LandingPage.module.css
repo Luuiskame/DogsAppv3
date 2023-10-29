@@ -1,0 +1,121 @@
+.mainLandingContainer {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* height: 100vh; */
+  gap: 0.6em;
+  background: #00425A;
+  /* background-color: #2B7A0B; */
+}
+
+.landingNav {
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4em;
+  align-items: center;
+  width: 100%;
+  background: rgb(0, 0, 0, 0.1);
+}
+
+.logo {
+  color: #1f4172;
+  font-size: 1.2em;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.spanLogo {
+  color: #1F8A70;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 1.5em;
+}
+
+.takeHomeBtn {
+  width: 4em;
+  height: 2em;
+  border: none;
+  border-radius: .6em;
+  background: #1f4172;
+  color: #fff;
+
+}
+.imgAndTextContainer {
+  width: 90%;
+  max-width: 430px;
+  margin: 0 auto;
+  gap: 1.8em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2em;
+}
+
+.h1Gradient {
+    color: #1F8A70;
+    font-weight: 500;
+}
+
+.imgContainer {
+  /* border-radius: 50%; */
+  /* width: 50%; */
+  height: fit-content;
+}
+
+.imgContainer img {
+  /* border-radius: 50%; */
+  width: 100%;
+  display: block;
+}
+
+.aboutContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  width: 90%;
+  max-width: 430px;
+  margin: 0 auto;
+}
+
+.landingNumbers {
+  border: 1px solid #1F8A70;
+  color: #fff;
+  border-radius: 50%;
+  width: 1.6em;
+  line-height: 1.5;
+}
+
+.landingP {
+  color: #fff;
+  margin-bottom: 2.3em;
+  font-family: "Inter", sans-serif;
+}
+
+.h1Landing {
+  color: #fdf0f0;
+  font-family: "Montserrat", sans-serif;
+}
+
+.takeApiBtn {
+    padding: .7em;
+    border: none;
+    background: #1F8A70;
+    color: #fff;
+    font-size: .9em;
+    text-transform: capitalize;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.takeApiBtn a {
+    text-decoration: none;
+    font-size: 1.3em;
+    color: #fff;
+}
+
+.numberTitles {
+    color: #BFDB38;
+}
+
+
