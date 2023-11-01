@@ -4,9 +4,8 @@
   display: flex;
   flex-direction: column;
   /* height: 100vh; */
-  gap: 0.6em;
+  gap: 1.4em;
   background: #00425A;
-  /* background-color: #2B7A0B; */
 }
 
 .landingNav {
@@ -38,17 +37,21 @@
   border-radius: .6em;
   background: #1f4172;
   color: #fff;
+  cursor: pointer;
+  transition: .2s ease-in-out;
+}
 
+.takeHomeBtn:hover{
+  background-color: #000;
 }
 .imgAndTextContainer {
   width: 90%;
-  max-width: 430px;
   margin: 0 auto;
   gap: 1.8em;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2em;
+  margin-bottom: 1.6em;
 }
 
 .h1Gradient {
@@ -57,13 +60,10 @@
 }
 
 .imgContainer {
-  /* border-radius: 50%; */
-  /* width: 50%; */
-  height: fit-content;
+  max-width: 640px;
 }
 
 .imgContainer img {
-  /* border-radius: 50%; */
   width: 100%;
   display: block;
 }
@@ -73,10 +73,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1em;
   width: 90%;
   max-width: 430px;
   margin: 0 auto;
+}
+
+.eachAboutContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .landingNumbers {
@@ -85,20 +91,33 @@
   border-radius: 50%;
   width: 1.6em;
   line-height: 1.5;
+  margin-bottom: 1em;
 }
 
 .landingP {
   color: #fff;
+  font-size: 1em;
   margin-bottom: 2.3em;
   font-family: "Inter", sans-serif;
 }
 
+.h1AndBtnContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 395px;
+  gap: 1em;
+}
+
 .h1Landing {
   color: #fdf0f0;
+  font-size: 1.2em;
   font-family: "Montserrat", sans-serif;
+
 }
 
 .takeApiBtn {
+  width: 50%;
     padding: .7em;
     border: none;
     background: #1F8A70;
@@ -106,6 +125,11 @@
     font-size: .9em;
     text-transform: capitalize;
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    transition: .2s ease-in;
+}
+
+.takeApiBtn:hover {
+  background: #1f4172;
 }
 
 .takeApiBtn a {
@@ -116,6 +140,143 @@
 
 .numberTitles {
     color: #BFDB38;
+    margin-bottom: .6em;
+}
+
+/* landing quote space */
+.landingQuoteContainer {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.imgWolfContainer {
+  width: 16em;
+  border-radius: 50%;
+  border: 1px solid #1F8A70;
+}
+
+.imgWolfContainer img {
+  width: 100%;
+  border-radius: 50%;
+  object-fit: contain;
+  display: block;
+}
+
+.landingQuoteContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.quoteContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  background: #fff;
+  position: relative;
+  bottom: 3.5em;
+  max-width: 432px;
+}
+
+.quoteText {
+  color: #00425A;
+  margin-top: 1.6em;
+}
+
+.quoteContainer p{
+  color: #00425A;
+}
+
+.quoteBtn {
+  width: 50%;
+  margin: 0 auto;
+  margin-bottom: 1.6em;
+  padding: 1em;
+  border: none;
+  color: #00425A;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  background: #1F8A70;
+}
+
+.quoteBtn a {
+  text-decoration: none;
+  font-size: 1em;
+    color: #fff;
+}
+
+@media screen and (min-width: 712px){
+  .aboutContainer {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1.2em;
+    max-width: none;
+  }
+  .imgAndTextContainer {
+    gap: 0em;
+    flex-direction: row;
+    margin-bottom: 2.6em;
+    justify-content: center;
+  }
+  .h1AndBtnContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 595px;
+    /* margin-right: 15%; */
+    gap: 1em;
+  }
+  .imgContainer {
+    max-width: 1040px;
+  }
+  .h1Landing {
+    font-size: 2em;
+  
+  }
+
+  .numberTitles {
+    color: #BFDB38;
+    font-size: 1.2em;
+    margin-bottom: .6em;
+}
+  .landingP{
+    font-size: 1em;
+  }
+  
+  .landingQuoteContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .quoteContainer {
+    flex-direction: column;
+    gap: 1em;
+    bottom: 0em;
+  }
+  .quoteText {
+    margin-top: 1.8em;
+  }
+  
+  .quoteBtn {
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 1.6em;
+    padding: 1em;
+    border: none;
+    color: #00425A;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-size: 1em;
+    font-weight: 500;
+    background: #1F8A70;
+  }
 }
 
 

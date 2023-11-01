@@ -26,7 +26,7 @@ function Detail(){
     }, [id])
 
     return(
-        <>
+        <div className={styles.detailContainer}>
         <Link to='/home'>
             <button>Home</button>
         </Link>
@@ -34,13 +34,18 @@ function Detail(){
             <div className={styles.imgDetailContainer}>
                 <img className={styles.detailImg} src={dogs.image || defaultImage} alt={dogs.name}/>
             </div>
+
+            <div className={styles.textContainer}>
             <h2>ID: {dogs.id}</h2>
             <h2>NAME :{dogs.name}</h2>
             <h2>WEIGHT: {dogs.weight}</h2>
             <h2>HEIGHT: {dogs.height}</h2>
             <h2>Temper: {dogs.temperament}</h2>
-            <h2>Life expectency: {dogs.life_span}</h2>
-        </>
+            <h2>Life span: {dogs.life_span}</h2>
+
+            </div>
+
+        </div>
     )
 }
 

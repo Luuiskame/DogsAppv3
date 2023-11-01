@@ -7,11 +7,8 @@ import styles from './Header.module.css'
 
 function Header(){
     return(
-        <header className={styles.nav}>
+        <header>
             <Searchbar/>
-            <Link to='/create-dog'>
-            <button>Create dog</button>
-            </Link>
             <Filters/>
         </header>
     )

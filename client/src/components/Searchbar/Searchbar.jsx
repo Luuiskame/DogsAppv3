@@ -1,35 +1,49 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-
+import { Link } from "react-router-dom";
 import { getDogsByName } from "../../../redux/actions";
 
-import styles from './Searchbar.module.css'
+import styles from "./Searchbar.module.css";
 
-function Searchbar(){
-    const [dogName, setDogName] = useState('')
-    const dispatch = useDispatch()
+function Searchbar() {
+  const [dogName, setDogName] = useState("");
+  const dispatch = useDispatch();
 
-    const handleSearch = ()=>{
-        dispatch(getDogsByName(dogName))
-    }
-   
-    return(
-        <nav className={styles.searchbarContainer}>
-        <input 
-        className={styles.searchbar}
-        type="search" 
-        value={dogName}
-        onChange={(event)=> setDogName(event.target.value)}
-        placeholder="Name here"
+  const handleSearch = () => {
+    dispatch(getDogsByName(dogName));
+  };
+
+  return (
+    <nav className={styles.searchbarContainer}>
+      <div className={styles.searchbarAndBtnsContainer}>
+        <input
+          className={styles.searchbar}
+          type="search"
+          value={dogName}
+          onChange={(event) => setDogName(event.target.value)}
+          placeholder="Name here"
         />
 
         <div className={styles.searchModeContainer}>
-            <button className={styles.searchBtn} onClick={handleSearch}>search</button>
-            <button className={styles.addRandomBtn}>random</button>
+          <button className={styles.searchBtn} onClick={handleSearch}>
+            search
+          </button>
+          <button className={styles.addRandomBtn}>random</button>
         </div>
+      </div>
+
+    <div className={styles.createDogAndOutContainer}>
+              <Link to="/create-dog">
+        <button className={styles.createDogBtn}>Create dog</button>
+      </Link>
+      <Link to="/">
+      <button className={styles.goLandingBtn}>Out</button>
+      </Link>
+
+    </div>
 
     </nav>
-    )
+  );
 }
 
-export default Searchbar
+export default Searchbar;

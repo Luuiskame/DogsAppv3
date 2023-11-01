@@ -1,4 +1,7 @@
+
 import { Link } from "react-router-dom"
+
+import styles from './Home.module.css'
 
 //redux actions
 import { getDogs, getAllTempers } from "../../../redux/actions"
@@ -23,7 +26,7 @@ function Home(){
     console.log(dogs)
 
     return(
-        <div>
+        <div className={styles.cardsContainer}>
            <Header/>
             {dogs.map(dog=>{
                 return(

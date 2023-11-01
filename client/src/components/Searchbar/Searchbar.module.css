@@ -1,0 +1,53 @@
+/* container with all divs and the btn */
+.searchbarContainer {
+    display: flex;
+    /* justify-content:start; */
+    width: 100%;
+    height: 2.5em;
+}
+
+.searchbarAndBtnsContainer{
+    display: flex;
+    width: 70%;
+}
+
+.searchModeContainer {
+    display: flex;
+    width: 50%;
+    max-width: 240px;
+}
+
+.searchbar {
+    width: 100%;
+    max-width: 460px;
+}
+
+.searchBtn{
+    width: 50%;
+}
+
+.addRandomBtn{
+    width: 50%;
+}
+
+.createDogAndOutContainer{
+    display: flex;
+    /* width: 30%; */
+    /* margin-left: 1em; */
+}
+
+.createDogBtn{
+    height: 100%;
+    /* display: block; */
+}
+
+.goLandingBtn {
+    height: 100%;
+    /* display: block; */
+}
+
+@media screen and (min-width: 712px){
+    .searchbarContainer{
+        justify-content: start;
+    }
+}
