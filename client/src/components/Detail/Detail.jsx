@@ -27,23 +27,22 @@ function Detail(){
 
     return(
         <div className={styles.detailContainer}>
-        <Link to='/home'>
-            <button>Home</button>
-        </Link>
-
             <div className={styles.imgDetailContainer}>
                 <img className={styles.detailImg} src={dogs.image || defaultImage} alt={dogs.name}/>
             </div>
 
             <div className={styles.textContainer}>
-            <h2>ID: {dogs.id}</h2>
-            <h2>NAME :{dogs.name}</h2>
-            <h2>WEIGHT: {dogs.weight}</h2>
-            <h2>HEIGHT: {dogs.height}</h2>
-            <h2>Temper: {dogs.temperament}</h2>
-            <h2>Life span: {dogs.life_span}</h2>
+            <h2><span>ID:</span> {dogs.id}</h2>
+            <h2><span>NAME:</span> {dogs.name}</h2>
+            <h2><span>WEIGHT:</span> {dogs.weight}</h2>
+            <h2><span>HEIGHT:</span> {dogs.height}</h2>
+            <h2><span>Temperament:</span> {dogs.temperament}</h2>
+            <h2><span>Life span:</span> {dogs.life_span}</h2>
 
             </div>
+            <Link to='/home'>
+            <button className={styles.backHomeBtn}>Back Home</button>
+        </Link>
 
         </div>
     )
