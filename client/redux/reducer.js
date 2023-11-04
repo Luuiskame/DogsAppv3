@@ -6,6 +6,7 @@ import {
   ORDER,
   FILTER_ALPHABETICALLY,
   GET_DOGS_FROM_DB,
+  RESET_FILTERS,
 } from "./action-types";
 
 const initalState = {
@@ -92,6 +93,12 @@ const reducer = (state = initalState, action) => {
         dogs: filteredDogsOrigin, 
         dogsOrigin: newDogsOrigin 
       };
+
+      case RESET_FILTERS:
+        return{
+          ...state,
+          dogs: state.allDogs
+        }
 
     default:
       return state;

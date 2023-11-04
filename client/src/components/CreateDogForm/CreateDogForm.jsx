@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, } from "react";
+import {useNavigate} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import CreateDogValidation from './CreateDogValidation';
@@ -7,6 +8,7 @@ import { getAllTempers } from "../../../redux/actions";
 function CreateDogForm() {
   const temperaments = useSelector(state => state.allTempers);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getAllTempers());
@@ -66,7 +68,8 @@ function CreateDogForm() {
       );
 
       if (response.data) {
-        console.log("Dog created", response.data);
+        console.log("Dog created", response.data.id);
+        navigate(`/detail/${response.data.id}`)
       } else {
         console.log("Server couldn't provide an ID for this dog");
       }

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./Filters.module.css";
 
-import { orderCards, filterByTemper, filterAlphabetically, filterFromDb } from "../../../redux/actions";
+import { orderCards, filterByTemper, filterAlphabetically, filterFromDb, resetFilters } from "../../../redux/actions";
 
 function Filters() {
     const dispatch = useDispatch()
@@ -25,6 +25,10 @@ function Filters() {
     const handleFilterDb = (event)=>{
       console.log(event.target.value)
       dispatch(filterFromDb(event.target.value))
+    }
+
+    const handleReset = ()=>{
+      dispatch(resetFilters())
     }
   return (
     <div className={styles.filtersContainer}>
@@ -50,6 +54,8 @@ function Filters() {
             return <option key={index} value={index}>{temperament}</option>
            })}
            </select>
+
+           <button className={styles.resetBtn} onClick={handleReset}>reset</button>
     </div>
   );
 }

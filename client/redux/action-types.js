@@ -9,4 +9,6 @@ export const GET_DOGS_FROM_DB = "GET_DOGS_FROM_DB"
 //order
 export const ORDER = "ORDER"
 export const FILTER_ALPHABETICALLY = "FILTER_ALPHABETICALLY"
-export const RESET_FILTER = "RESET_FILTER"
+
+//reset btn
+export const RESET_FILTERS = "RESET_FILTERS"
