@@ -17,7 +17,8 @@ function CreateDogForm() {
   const [formData, setFormData] = useState({
     name: "",
     height: "",
-    weight: "",
+    minWeight: "",
+    maxWeight: "",
     life_span: "",
     temperaments: [], // Usar un array para almacenar temperamentos seleccionados
   });
@@ -60,11 +61,17 @@ function CreateDogForm() {
 
   const sendDog = async (event) => {
     event.preventDefault();
+    const dog = {
+      name: formData.name,
+      height: formData.height,
+      life_span: formData.life_span,
+      temperaments: formData.temperaments,
+      weight: `${formData.minWeight} - ${formData.maxWeight}`
+    }
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/dogsapp/dogs",
-        formData
+        "http://localhost:3001/dogsapp/dogs",dog
       );
 
       if (response.data) {
@@ -87,8 +94,11 @@ function CreateDogForm() {
       <label htmlFor="height">Height:</label>
       <input type="text" name="height" onChange={handleChange} />
 
-      <label htmlFor="weight">Weight:</label>
-      <input type="text" name="weight" onChange={handleChange} />
+      <label htmlFor="minWeight">Min Weight:</label>
+      <input type="text" name="minWeight" onChange={handleChange} />
+      
+      <label htmlFor="maxWeight">max weight</label>
+      <input type="text" name="maxWeight" onChange={handleChange}/>
 
       <label htmlFor="life_span">Life Span:</label>
       <input type="text" name="life_span" onChange={handleChange} />

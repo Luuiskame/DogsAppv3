@@ -9,8 +9,12 @@ const CreateDogValidation = (data)=>{
         errors.height = "A height between 15 cm to 70cm it's recommended if looking for realism"
     }
 
-    if(data.weight < 5 || data.weight > 70){
-        errors.height = "A weight between 7 to 50kg is recommended if looking for realism"
+    if(data.minWeight < 5 || data.weight > 70){
+        errors.minWeight = "A weight between 7 to 50kg is recommended if looking for realism"
+    }
+
+    if(data.maxWeight > 70){
+        errors.maxWeight = "A weight between 7 to 50kg is recommended if looking for realism"
     }
 
     if(data.life_span < 3 || data.life_span > 20){
