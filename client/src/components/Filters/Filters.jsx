@@ -45,7 +45,8 @@ function Filters() {
       <select onChange={handleOrder}>
         <option value="upwards">upwards</option>
         <option value="downwards">downwards</option>
-        <option value="weight">weight</option>
+        <option value="maxWeight">max weight</option>
+        <option value="minWeight">Min weight</option>
       </select>
 
       <select onChange={handleFilterByTemper}>

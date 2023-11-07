@@ -43,8 +43,20 @@ const reducer = (state = initalState, action) => {
         orderDogs = state.dogs.sort((a, b) => (a.id > b.id ? 1 : -1));
       }
 
-      if (action.payload === "weight") {
-        orderDogs = state.dogs.sort((a, b) => (a.weight > b.weight ? 1 : -1));
+      if (action.payload === "maxWeight") {
+        orderDogs = [...state.dogs].sort((a,b)=>{
+          const weightA = parseInt(a.weight.split(" - ")[1])
+          const weightB = parseInt(b.weight.split(" - ")[1])
+          return weightB - weightA
+        })
+      }
+
+      if(action.payload === "minWeight"){
+        orderDogs = [...state.dogs].sort((a,b)=>{
+          const weightA = parseInt(a.weight.split(" - ")[1])
+          const weightB = parseInt(b.weight.split(" - ")[1])
+          return weightA - weightB
+        })
       }
 
       if (action.payload === "downwards") {
