@@ -1,14 +1,16 @@
-import { useState, useEffect, } from "react";
-import {useNavigate} from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import CreateDogValidation from './CreateDogValidation';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import CreateDogValidation from "./CreateDogValidation";
 import { getAllTempers } from "../../../redux/actions";
 
+import styles from "./createDogForm.module.css";
+
 function CreateDogForm() {
-  const temperaments = useSelector(state => state.allTempers);
+  const temperaments = useSelector((state) => state.allTempers);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAllTempers());
@@ -20,7 +22,7 @@ function CreateDogForm() {
     minWeight: "",
     maxWeight: "",
     life_span: "",
-    temperaments: [], // Usar un array para almacenar temperamentos seleccionados
+    temperaments: [],
   });
 
   const [errors, setErrors] = useState({});
@@ -30,7 +32,6 @@ function CreateDogForm() {
 
     setFormData((prevData) => {
       if (type === "checkbox") {
-        // Si es una casilla de verificación, maneja la selección de temperamentos
         if (checked) {
           return {
             ...prevData,
@@ -39,11 +40,20 @@ function CreateDogForm() {
         } else {
           return {
             ...prevData,
-            temperaments: prevData.temperaments.filter((temp) => temp !== value),
+            temperaments: prevData.temperaments.filter(
+              (temp) => temp !== value
+            ),
+          };
+        }
+      } else if (name === "temperament") {
+        // Agregar el temperamento seleccionado al array
+        if (!prevData.temperaments.includes(value)) {
+          return {
+            ...prevData,
+            temperaments: [...prevData.temperaments, value],
           };
         }
       } else {
-        // Para otros campos, simplemente actualiza el valor
         return {
           ...prevData,
           [name]: value,
@@ -66,17 +76,18 @@ function CreateDogForm() {
       height: formData.height,
       life_span: formData.life_span,
       temperaments: formData.temperaments,
-      weight: `${formData.minWeight} - ${formData.maxWeight}`
-    }
+      weight: `${formData.minWeight} - ${formData.maxWeight}`,
+    };
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/dogsapp/dogs",dog
+        "http://localhost:3001/dogsapp/dogs",
+        dog
       );
 
       if (response.data) {
         console.log("Dog created", response.data.id);
-        navigate(`/detail/${response.data.id}`)
+        navigate(`/detail/${response.data.id}`);
       } else {
         console.log("Server couldn't provide an ID for this dog");
       }
@@ -86,7 +97,8 @@ function CreateDogForm() {
   };
 
   return (
-    <form onSubmit={sendDog}>
+    <form className={styles.formContainer} onSubmit={sendDog}>
+      <div className={styles.labelsAndInputsContainer}>
       <label htmlFor="name">Name:</label>
       <input type="text" name="name" onChange={handleChange} />
       {errors.name && <p>{errors.name}</p>}
@@ -96,30 +108,44 @@ function CreateDogForm() {
 
       <label htmlFor="minWeight">Min Weight:</label>
       <input type="text" name="minWeight" onChange={handleChange} />
-      
+
       <label htmlFor="maxWeight">max weight</label>
-      <input type="text" name="maxWeight" onChange={handleChange}/>
+      <input type="text" name="maxWeight" onChange={handleChange} />
 
       <label htmlFor="life_span">Life Span:</label>
       <input type="text" name="life_span" onChange={handleChange} />
 
-      <div>
-        <label>Temperaments:</label>
-        {temperaments.map((temper) => (
-          <label key={temper}>
-            <input
-              type="checkbox"
-              name="temperaments"
-              value={temper}
-              checked={formData.temperaments.includes(temper)} // Marcar las casillas de verificación seleccionadas
-              onChange={handleChange}
-            />
-            {temper}
-          </label>
-        ))}
       </div>
 
-      <button type="submit">Create</button>
+      <div className={styles.selectContainer}>
+        <label htmlFor="temperament">Temperaments</label>
+        <select name="temperament" onChange={handleChange} value="">
+          <option value="" disabled>
+            Select a temperament
+          </option>
+          {temperaments.map((temp) => (
+            <option key={temp} value={temp}>
+              {temp}
+            </option>
+          ))}
+        </select>
+
+        <div className={styles.tempersTextContainer}>
+        Selected Temperaments:
+        <ul>
+          {formData.temperaments.map((temp, index) => (
+            <li key={index}>{temp}</li>
+          ))}
+        </ul>
+      </div>
+
+      
+      <button type="submit" className={styles.submitFormBtn}>Create</button>
+        
+      </div>
+
+
+
     </form>
   );
 }
