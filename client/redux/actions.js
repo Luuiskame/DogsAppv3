@@ -36,12 +36,17 @@ export const getDogsByName = (name) => async (dispatch) => {
     const data = response.data;
     console.log(data);
 
-    dispatch({
-      type: GET_DOGS_BY_NAME,
-      payload: data,
-    });
+    if(data.length === 0){
+      window.alert("Dog not found")
+    } else {
+      dispatch({
+        type: GET_DOGS_BY_NAME,
+        payload: data,
+      });
+    }
+
   } catch (error) {
-    window.alert(error);
+    console.log(error);
   }
 };
 

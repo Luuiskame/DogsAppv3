@@ -1,6 +1,6 @@
 
 .detailContainer{
-    height: 100vh;
+    /* height: 100vh; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,6 +13,7 @@
 
 .imgDetailContainer {
     width: 90%;
+    max-width: 900px;
     margin: auto;
 }
 
@@ -51,9 +52,17 @@ h2 {
 
 @media screen and (min-width: 712px){
     .detailContainer{
+        height: 100vh;
         flex-direction: row;
         max-width: none;
         justify-content: space-between;
 
+    }
+    .backHomeBtn{
+        margin-right: 1em;
+        cursor: pointer;
+    }
+    .imgDetailContainer{
+        margin-left: 1em;
     }
 }

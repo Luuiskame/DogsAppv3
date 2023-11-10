@@ -18,7 +18,8 @@ function CreateDogForm() {
 
   const [formData, setFormData] = useState({
     name: "",
-    height: "",
+    minHeight: "",
+    maxHeight: "",
     minWeight: "",
     maxWeight: "",
     life_span: "",
@@ -52,6 +53,9 @@ function CreateDogForm() {
             ...prevData,
             temperaments: [...prevData.temperaments, value],
           };
+        } else {
+          window.alert("temperament already selected")
+          return prevData
         }
       } else {
         return {
@@ -71,9 +75,13 @@ function CreateDogForm() {
 
   const sendDog = async (event) => {
     event.preventDefault();
+    if(formData.temperaments.length === 0){
+      window.alert("Please select at least one temperament")
+      return 
+    }
     const dog = {
       name: formData.name,
-      height: formData.height,
+      height: `${formData.minHeight} - ${formData.maxHeight}`,
       life_span: formData.life_span,
       temperaments: formData.temperaments,
       weight: `${formData.minWeight} - ${formData.maxWeight}`,
@@ -97,17 +105,13 @@ function CreateDogForm() {
   };
 
   const canSubmit = !formData.name ||
-  !formData.height ||
+  !formData.maxHeight ||
+  !formData.minHeight ||
   !formData.minWeight ||
   !formData.maxWeight ||
   !formData.life_span ||
   !formData.temperaments ||
-  errors.name ||
-  errors.height ||
-  errors.minWeight ||
-  errors.maxWeight ||
-  errors.life_span ||
-  errors.temperaments
+  errors.name 
     ? false
     : true
 
@@ -118,17 +122,25 @@ function CreateDogForm() {
       <input type="text" name="name" onChange={handleChange} />
       {errors.name && <p>{errors.name}</p>}
 
-      <label htmlFor="height">Height:</label>
-      <input type="text" name="height" onChange={handleChange} />
+      <label htmlFor="minHeight">Min height:</label>
+      <input type="number" name="minHeight" onChange={handleChange} />
+      {errors.minHeight && <p>{errors.minHeight}</p>}
+
+      <label htmlFor="maxHeight">Max height:</label>
+      <input type="number" name="maxHeight" onChange={handleChange} />
+      {errors.maxHeight && <p>{errors.maxHeight}</p>}
 
       <label htmlFor="minWeight">Min Weight:</label>
-      <input type="text" name="minWeight" onChange={handleChange} />
+      <input type="number" name="minWeight" onChange={handleChange} />
+      {errors.minWeight && <p>{errors.minWeight}</p>}
 
       <label htmlFor="maxWeight">max weight</label>
-      <input type="text" name="maxWeight" onChange={handleChange} />
+      <input type="number" name="maxWeight" onChange={handleChange} />
+      {errors.maxWeight && <p>{errors.maxWeight}</p>}
 
       <label htmlFor="life_span">Life Span:</label>
-      <input type="text" name="life_span" onChange={handleChange} />
+      <input type="number" name="life_span" onChange={handleChange} />
+      {errors.life_span && <p>{errors.life_span}</p>}
 
       </div>
 

@@ -9,7 +9,7 @@
     /* align-items: center; */
     
     gap: 1em;
-    border: 1px solid red;
+    border: 1px solid #1F8A70;
     border-radius: 10px;
 }
 
@@ -20,6 +20,7 @@
     height: 180px;
     margin: 0 auto;
     gap: 1em;
+    color: #fff;
 }
 
 .imgContainer {
@@ -46,7 +47,15 @@
     margin-bottom: 1em;
     padding: .4em;
     border-radius: 3em;
-    background-color: red;
+    background: #BFDB38;
+    
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.takeDetailBtn:hover{
+    background-color: #1F8A70;
+    color: #fff;
 }
 
 @media screen and (min-width: 712px){
@@ -62,5 +71,8 @@
 
     .imgContainer {
         order: 1;
+    }
+    .cardName{
+        margin-top: 1em;
     }
 }

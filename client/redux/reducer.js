@@ -10,7 +10,6 @@ import {
   NEXT_PAGE,
   PREV_PAGE,
 } from "./action-types";
-import { prevPage } from "./actions";
 
 const initalState = {
   dogs: [],
@@ -76,7 +75,7 @@ const reducer = (state = initalState, action) => {
     case FILTER_BY_TEMPER:
       const index = action.payload
       const temperToFilter = state.allTempers[index]
-      const filteredDogsByTemper = state.dogs.filter((dog) => dog.temperament && dog.temperament.includes(temperToFilter))              
+      const filteredDogsByTemper = state.allDogs.filter((dog) => dog.temperament && dog.temperament.includes(temperToFilter))              
       if(action.payload==="All"){
       return{...state, dogs: state.allDogs }
     }

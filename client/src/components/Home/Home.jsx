@@ -67,7 +67,7 @@ function Home() {
       >
         previous
       </button>
-      <button className={styles.pagBtn} onClick={nextPageHandle}>
+      <button className={styles.pagBtn} onClick={nextPageHandle} disabled={currentPage === end}>
         Next
       </button>
         
