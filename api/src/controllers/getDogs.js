@@ -10,7 +10,7 @@ const {Dog,Temperament} = require('../db')
 async function getDogs(req, res) {
   try {
     // Fetch dogs from the API
-    const apiResponse = await axios(`${URL}?api_key=${API_KEY}&limit=10`);
+    const apiResponse = await axios(`${URL}?api_key=${API_KEY}`);
     const apiData = apiResponse.data;
 
     // Fetch dogs from the database

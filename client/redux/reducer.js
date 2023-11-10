@@ -7,13 +7,18 @@ import {
   FILTER_ALPHABETICALLY,
   GET_DOGS_FROM_DB,
   RESET_FILTERS,
+  NEXT_PAGE,
+  PREV_PAGE,
 } from "./action-types";
+import { prevPage } from "./actions";
 
 const initalState = {
   dogs: [],
   allDogs: [],
   dogsOrigin: "All",
   allTempers: [],
+  currentPage: 1,
+  dogsPerPage: 8
 };
 
 const reducer = (state = initalState, action) => {
@@ -110,6 +115,18 @@ const reducer = (state = initalState, action) => {
         return{
           ...state,
           dogs: state.allDogs
+        }
+
+      case NEXT_PAGE:
+        return {
+          ...state,
+          currentPage: state.currentPage +1
+        }
+
+      case PREV_PAGE:
+        return {
+          ...state,
+          currentPage: state.currentPage -1
         }
 
     default:

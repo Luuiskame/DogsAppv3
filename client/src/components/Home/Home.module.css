@@ -9,6 +9,14 @@
     gap: 2em;
 }
 
+.homeBtnsContainer {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2em;
+}
+
 @media screen  and (min-width:712px){
     .cardsContainer{
         flex-direction: row;

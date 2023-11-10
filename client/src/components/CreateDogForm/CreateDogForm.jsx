@@ -96,6 +96,21 @@ function CreateDogForm() {
     }
   };
 
+  const canSubmit = !formData.name ||
+  !formData.height ||
+  !formData.minWeight ||
+  !formData.maxWeight ||
+  !formData.life_span ||
+  !formData.temperaments ||
+  errors.name ||
+  errors.height ||
+  errors.minWeight ||
+  errors.maxWeight ||
+  errors.life_span ||
+  errors.temperaments
+    ? false
+    : true
+
   return (
     <form className={styles.formContainer} onSubmit={sendDog}>
       <div className={styles.labelsAndInputsContainer}>
@@ -140,7 +155,7 @@ function CreateDogForm() {
       </div>
 
       
-      <button type="submit" className={styles.submitFormBtn}>Create</button>
+      <button type="submit" className={styles.submitFormBtn} disabled={!canSubmit}>Create</button>
         
       </div>
 

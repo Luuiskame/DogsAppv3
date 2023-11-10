@@ -7,7 +7,9 @@ import {
   FILTER_ALPHABETICALLY,
   POST_DOGS,
   GET_DOGS_FROM_DB,
-  RESET_FILTERS
+  RESET_FILTERS,
+  NEXT_PAGE,
+  PREV_PAGE
 } from "./action-types";
 import axios from "axios";
 
@@ -106,3 +108,12 @@ export const filterFromDb = (filteredValue) => ({
 export const resetFilters = ()=>({
     type: RESET_FILTERS,
 })
+
+//PAGINATED
+export const nextPage = ()=>{
+  return{type:NEXT_PAGE}
+}
+
+export const prevPage = ()=>{
+  return {type: PREV_PAGE}
+}

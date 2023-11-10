@@ -12,3 +12,7 @@ export const FILTER_ALPHABETICALLY = "FILTER_ALPHABETICALLY"
 
 //reset btn
 export const RESET_FILTERS = "RESET_FILTERS"
+
+//paginated
+export const NEXT_PAGE = "NEXT_PAGE"
+export const PREV_PAGE = "PREV_PAGE"
