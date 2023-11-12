@@ -9,6 +9,7 @@ import {
   RESET_FILTERS,
   NEXT_PAGE,
   PREV_PAGE,
+  ERROR_NAME,
 } from "./action-types";
 
 const initalState = {
@@ -17,11 +18,19 @@ const initalState = {
   dogsOrigin: "All",
   allTempers: [],
   currentPage: 1,
-  dogsPerPage: 8
+  dogsPerPage: 8,
+  errorName: null,
 };
 
 const reducer = (state = initalState, action) => {
   switch (action.type) {
+    //error handler
+    case ERROR_NAME:
+      return {
+        ...state,
+        errorName: action.payload,
+      };
+
     case GET_DOGS:
       return {
         ...state,
@@ -48,19 +57,19 @@ const reducer = (state = initalState, action) => {
       }
 
       if (action.payload === "maxWeight") {
-        orderDogs = [...state.dogs].sort((a,b)=>{
-          const weightA = parseInt(a.weight.split(" - ")[1])
-          const weightB = parseInt(b.weight.split(" - ")[1])
-          return weightB - weightA
-        })
+        orderDogs = [...state.dogs].sort((a, b) => {
+          const weightA = parseInt(a.weight.split(" - ")[1]);
+          const weightB = parseInt(b.weight.split(" - ")[1]);
+          return weightB - weightA;
+        });
       }
 
-      if(action.payload === "minWeight"){
-        orderDogs = [...state.dogs].sort((a,b)=>{
-          const weightA = parseInt(a.weight.split(" - ")[1])
-          const weightB = parseInt(b.weight.split(" - ")[1])
-          return weightA - weightB
-        })
+      if (action.payload === "minWeight") {
+        orderDogs = [...state.dogs].sort((a, b) => {
+          const weightA = parseInt(a.weight.split(" - ")[1]);
+          const weightB = parseInt(b.weight.split(" - ")[1]);
+          return weightA - weightB;
+        });
       }
 
       if (action.payload === "downwards") {
@@ -69,19 +78,28 @@ const reducer = (state = initalState, action) => {
       return {
         ...state,
         dogs: [...orderDogs],
+        currentPage: 1,
       };
 
     //filter
     case FILTER_BY_TEMPER:
-      const index = action.payload
-      const temperToFilter = state.allTempers[index]
-      const filteredDogsByTemper = state.allDogs.filter((dog) => dog.temperament && dog.temperament.includes(temperToFilter))              
-      if(action.payload==="All"){
-      return{...state, dogs: state.allDogs }
-    }
-    return {
-      ...state, 
-      dogs: filteredDogsByTemper}
+      const index = action.payload;
+      const temperToFilter = state.allTempers[index];
+      const filteredDogsByTemper = state.allDogs.filter(
+        (dog) => dog.temperament && dog.temperament.includes(temperToFilter)
+      );
+      if (action.payload === "All") {
+        return {
+          ...state,
+          dogs: state.allDogs,
+          currentPage: 1,
+        };
+      }
+      return {
+        ...state,
+        dogs: filteredDogsByTemper,
+        currentPage: 1,
+      };
 
     case FILTER_ALPHABETICALLY:
       let filteredDogs;
@@ -97,36 +115,39 @@ const reducer = (state = initalState, action) => {
       return {
         ...state,
         dogs: filteredDogs,
+        currentPage: 1,
       };
 
     case GET_DOGS_FROM_DB:
       const newDogsOrigin = action.payload; // API / DB
       const filteredDogsOrigin = state.allDogs.filter((dog) => {
-        return newDogsOrigin === "api" ? !dog.createdAtDatabase : dog.createdAtDatabase;
+        return newDogsOrigin === "api"
+          ? !dog.createdAtDatabase
+          : dog.createdAtDatabase;
       });
-      return { 
-        ...state, 
-        dogs: filteredDogsOrigin, 
-        dogsOrigin: newDogsOrigin 
+      return {
+        ...state,
+        dogs: filteredDogsOrigin,
+        dogsOrigin: newDogsOrigin,
       };
 
-      case RESET_FILTERS:
-        return{
-          ...state,
-          dogs: state.allDogs
-        }
+    case RESET_FILTERS:
+      return {
+        ...state,
+        dogs: state.allDogs,
+      };
 
-      case NEXT_PAGE:
-        return {
-          ...state,
-          currentPage: state.currentPage +1
-        }
+    case NEXT_PAGE:
+      return {
+        ...state,
+        currentPage: state.currentPage + 1,
+      };
 
-      case PREV_PAGE:
-        return {
-          ...state,
-          currentPage: state.currentPage -1
-        }
+    case PREV_PAGE:
+      return {
+        ...state,
+        currentPage: state.currentPage - 1,
+      };
 
     default:
       return state;

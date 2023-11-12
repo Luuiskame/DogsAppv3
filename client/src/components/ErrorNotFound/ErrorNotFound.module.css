@@ -1,0 +1,33 @@
+.errorContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    margin: auto;
+  }
+  
+  .errorContainer h2 {
+    color: #ff0000;
+  }
+  
+  .errorContainer p {
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .homeButton {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .homeButton:hover {
+    background-color: #0056b3;
+  }
+  

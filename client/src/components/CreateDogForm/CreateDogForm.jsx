@@ -73,6 +73,16 @@ function CreateDogForm() {
     );
   };
 
+  const removeTemperament = (index) => {
+    const updatedTemperaments = [...formData.temperaments];
+    updatedTemperaments.splice(index, 1);
+    setFormData((prevData) => ({
+      ...prevData,
+      temperaments: updatedTemperaments,
+    }));
+  };
+
+
   const sendDog = async (event) => {
     event.preventDefault();
     if(formData.temperaments.length === 0){
@@ -158,13 +168,21 @@ function CreateDogForm() {
         </select>
 
         <div className={styles.tempersTextContainer}>
-        Selected Temperaments:
-        <ul>
-          {formData.temperaments.map((temp, index) => (
-            <li key={index}>{temp}</li>
-          ))}
-        </ul>
-      </div>
+          <p>Selected Temperaments:</p>
+          <ul>
+            {formData.temperaments.map((temp, index) => (
+              <li key={index}>
+                {temp}{" "}
+                <button
+                  type="button"
+                  onClick={() => removeTemperament(index)}
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
 
       
       <button type="submit" className={styles.submitFormBtn} disabled={!canSubmit}>Create</button>

@@ -9,8 +9,10 @@ import {
   GET_DOGS_FROM_DB,
   RESET_FILTERS,
   NEXT_PAGE,
-  PREV_PAGE
+  PREV_PAGE,
+  ERROR_NAME
 } from "./action-types";
+
 import axios from "axios";
 
 export const getDogs = () => async (dispatch) => {
@@ -37,7 +39,8 @@ export const getDogsByName = (name) => async (dispatch) => {
     console.log(data);
 
     if(data.length === 0){
-      window.alert("Dog not found")
+      const notFoundName = "notfound"
+      dispatch(errorsNameHandler(notFoundName))
     } else {
       dispatch({
         type: GET_DOGS_BY_NAME,
@@ -121,4 +124,12 @@ export const nextPage = ()=>{
 
 export const prevPage = ()=>{
   return {type: PREV_PAGE}
+}
+
+//ERRORS
+export const errorsNameHandler = (errorName)=>{
+  return {
+    type: ERROR_NAME,
+    payload: errorName
+  }
 }

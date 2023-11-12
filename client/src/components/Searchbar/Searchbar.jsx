@@ -1,23 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getDogsByName } from "../../../redux/actions";
+import { Link, useNavigate } from "react-router-dom";
+import { getDogsByName, errorsNameHandler } from "../../../redux/actions";
 
 import styles from "./Searchbar.module.css";
 
 function Searchbar() {
   const [dogName, setDogName] = useState("");
   const dispatch = useDispatch();
-  const dogs = useSelector(state=> state.dogs)
+  const navigate = useNavigate()
+  const errorName = useSelector(state=> state.errorName)
   
   const handleSearch = () => {
     if(dogName === ""){
-      window.alert("not found")
+      window.alert("you need to type a name, example: akita")
     } else {
       dispatch(getDogsByName(dogName));
-
     }
   };
+
+  useEffect(()=>{
+    if(errorName === "notfound"){
+      navigate('/notfound')
+      dispatch(errorsNameHandler(""))
+    }
+  },[errorName])
 
   return (
     <nav className={styles.searchbarContainer}>

@@ -25,6 +25,7 @@ function Home() {
   const currentPage = useSelector((state) => state.currentPage);
   const dogsPerPage = useSelector((state) => state.dogsPerPage);
 
+  const totalPages = Math.ceil(dogs.length / dogsPerPage)
   const start = (currentPage - 1) * dogsPerPage;
   const end = start + dogsPerPage;
 
@@ -67,7 +68,7 @@ function Home() {
       >
         previous
       </button>
-      <button className={styles.pagBtn} onClick={nextPageHandle} disabled={currentPage === end}>
+      <button className={styles.pagBtn} onClick={nextPageHandle} disabled={currentPage === totalPages}>
         Next
       </button>
         

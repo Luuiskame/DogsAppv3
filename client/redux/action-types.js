@@ -16,3 +16,6 @@ export const RESET_FILTERS = "RESET_FILTERS"
 //paginated
 export const NEXT_PAGE = "NEXT_PAGE"
 export const PREV_PAGE = "PREV_PAGE"
+
+//errors
+export const ERROR_NAME = "ERROR_NAME"
