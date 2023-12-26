@@ -120,7 +120,7 @@ function CreateDogForm() {
   !formData.minWeight ||
   !formData.maxWeight ||
   !formData.life_span ||
-  !formData.temperaments ||
+  formData.temperaments.length === 0 ||
   errors.name 
     ? false
     : true

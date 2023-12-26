@@ -10,7 +10,9 @@ import {
   RESET_FILTERS,
   NEXT_PAGE,
   PREV_PAGE,
-  ERROR_NAME
+  GO_TO_FIRST_PAGE,
+  GO_TO_LAST_PAGE,
+  ERROR_NAME,
 } from "./action-types";
 
 import axios from "axios";
@@ -125,6 +127,15 @@ export const nextPage = ()=>{
 export const prevPage = ()=>{
   return {type: PREV_PAGE}
 }
+
+export const goToFirstPage = () => ({
+  type: GO_TO_FIRST_PAGE,
+});
+
+export const goToLastPage = (totalPages) => ({
+  type: GO_TO_LAST_PAGE,
+  totalPages,
+});
 
 //ERRORS
 export const errorsNameHandler = (errorName)=>{

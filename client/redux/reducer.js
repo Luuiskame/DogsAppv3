@@ -9,6 +9,8 @@ import {
   RESET_FILTERS,
   NEXT_PAGE,
   PREV_PAGE,
+  GO_TO_FIRST_PAGE,
+  GO_TO_LAST_PAGE,
   ERROR_NAME,
 } from "./action-types";
 
@@ -148,6 +150,18 @@ const reducer = (state = initalState, action) => {
         ...state,
         currentPage: state.currentPage - 1,
       };
+
+      case GO_TO_FIRST_PAGE:
+  return {
+    ...state,
+    currentPage: 1,
+  };
+
+case GO_TO_LAST_PAGE:
+  return {
+    ...state,
+    currentPage: action.totalPages,
+  };
 
     default:
       return state;

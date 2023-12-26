@@ -7,6 +7,8 @@ import {
   getAllTempers,
   prevPage,
   nextPage,
+  goToFirstPage,
+  goToLastPage
 } from "../../../redux/actions";
 
 // hooks
@@ -18,13 +20,14 @@ import Card from "../Card/Card";
 import Header from "../Header/Header";
 
 function Home() {
-  // getting the dogs global stage and dispatch method
   const dispatch = useDispatch();
   const dogs = useSelector((state) => state.dogs);
   const currentPage = useSelector((state) => state.currentPage);
   const dogsPerPage = useSelector((state) => state.dogsPerPage);
 
-  const totalPages = Math.ceil(dogs.length / dogsPerPage)
+  const [isDogsEmpty, setIsDogsEmpty] = useState(false); // State to track if dogs array is empty
+
+  const totalPages = Math.ceil(dogs.length / dogsPerPage);
   const start = (currentPage - 1) * dogsPerPage;
   const end = start + dogsPerPage;
 
@@ -38,17 +41,31 @@ function Home() {
     dispatch(prevPage());
   };
 
+  const firstPageHandle = () => {
+    dispatch(goToFirstPage()); // Disparar acción para ir a la primera página
+  };
+
+  const lastPageHandle = () => {
+    dispatch(goToLastPage(totalPages)); // Disparar acción para ir a la última página
+  };
+
   useEffect(() => {
     dispatch(getDogs());
     dispatch(getAllTempers());
   }, []);
-  console.log(dogs);
+
+  useEffect(() => {
+    // Check if the filtered dogs array is empty
+    setIsDogsEmpty(currentDogs.length === 0);
+  }, [currentDogs]);
 
   return (
     <div className={styles.cardsContainer}>
       <Header />
-      {currentDogs.map((dog) => {
-        return (
+      {isDogsEmpty ? ( // Conditionally render a message when dogs array is empty
+        <div>You haven't created any dogs yet</div>
+      ) : (
+        currentDogs.map((dog) => (
           <Card
             key={dog.id}
             id={dog.id}
@@ -57,22 +74,41 @@ function Home() {
             weight={dog.weight}
             temperament={dog.temperament}
           />
-        );
-      })}
+        ))
+      )}
       <div className={styles.homeBtnsContainer}>
-      <button
-        className={styles.pagBtn}
-        onClick={prevPageHandle}
-        disabled={currentPage === 1}
-      >
-        previous
-      </button>
-      <button className={styles.pagBtn} onClick={nextPageHandle} disabled={currentPage === totalPages}>
-        Next
-      </button>
-        
-      </div>
+        <button
+          className={styles.pagBtn}
+          onClick={prevPageHandle}
+          disabled={currentPage === 1}
+        >
+          previous
+        </button>
 
+        <button
+          className={styles.pagBtn}
+          onClick={firstPageHandle}
+          disabled={currentPage === 1}
+        >
+          {currentPage}
+        </button>
+
+        <button
+          className={styles.pagBtn}
+          onClick={lastPageHandle}
+          disabled={currentPage === totalPages}
+        >
+          {totalPages}
+        </button>
+
+        <button
+          className={styles.pagBtn}
+          onClick={nextPageHandle}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
