@@ -16,7 +16,7 @@ import {
 } from "./action-types";
 
 import axios from "axios";
-const API_URL = import.meta.MODE = 'development' ? import.meta.env.VITE_API_BASE_URL : "https://dogs-appv3.vercel.app"
+export const API_URL = import.meta.env.MODE === 'development' ? 'http://localhost:3001' : 'https://dogs-appv3.vercel.app';
 
 export const getDogs = () => async (dispatch) => {
   try {
