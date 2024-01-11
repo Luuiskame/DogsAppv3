@@ -7,6 +7,9 @@ import { getAllTempers } from "../../../redux/actions";
 
 import styles from "./createDogForm.module.css";
 
+const API_URL = import.meta.MODE = 'development' ? import.meta.env.VITE_API_BASE_URL : "https://dogs-appv3.vercel.app"
+
+
 function CreateDogForm() {
   const temperaments = useSelector((state) => state.allTempers);
   const dispatch = useDispatch();
@@ -99,7 +102,7 @@ function CreateDogForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/dogsapp/dogs",
+        `${API_URL}/dogsapp/dogs`,
         dog
       );
 

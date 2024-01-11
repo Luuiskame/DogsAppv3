@@ -16,10 +16,11 @@ import {
 } from "./action-types";
 
 import axios from "axios";
+const API_URL = import.meta.MODE = 'development' ? import.meta.env.VITE_API_BASE_URL : "https://dogs-appv3.vercel.app"
 
 export const getDogs = () => async (dispatch) => {
   try {
-    const response = await axios("http://localhost:3001/dogsapp/dogs");
+    const response = await axios(`${API_URL}/dogsapp/dogs`);
     const dogsData = response.data;
     console.log(dogsData);
 
@@ -35,7 +36,7 @@ export const getDogs = () => async (dispatch) => {
 export const getDogsByName = (name) => async (dispatch) => {
   try {
     const response = await axios(
-      `http://localhost:3001/dogsapp/dogs/name?name=${name}`
+      `${API_URL}/dogsapp/dogs/name?name=${name}`
     );
     const data = response.data;
     console.log(data);
@@ -57,7 +58,7 @@ export const getDogsByName = (name) => async (dispatch) => {
 
 export const getAllTempers = () => async (dispatch) => {
   try {
-    const response = await axios("http://localhost:3001/dogsapp/temperament");
+    const response = await axios(`${API_URL}/temperament`);
     const temperaments = response.data;
     console.log(temperaments);
 
@@ -72,7 +73,7 @@ export const getAllTempers = () => async (dispatch) => {
 
 export const postDogs = (dog) => async (dispatch) => {
   try {
-    const endpoint = "http://localhost:3001/dogsapp/dogs";
+    const endpoint = `${API_URL}/dogsapp/dogs`;
     const response = await axios.post(endpoint, dog);
     const data = response.data;
     console.log(dog);
