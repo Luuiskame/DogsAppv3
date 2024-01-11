@@ -5,7 +5,7 @@ import axios from "axios";
 import CreateDogValidation from "./CreateDogValidation";
 import { getAllTempers } from "../../../redux/actions";
 
-import styles from "./createDogForm.module.css";
+import styles from "./CreateDogForm.module.css";
 
 export const API_URL = import.meta.env.MODE === 'development' ? 'http://localhost:3001' : 'https://dogs-appv3.vercel.app';
 
