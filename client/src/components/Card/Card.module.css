@@ -64,7 +64,7 @@
 
 @media screen and (min-width: 712px){
     .cardContainer {
-        max-width: 320px;
+        max-width: 420px;
         flex-direction: column;
         gap: 1em;
     }
