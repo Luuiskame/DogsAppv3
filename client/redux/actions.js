@@ -58,7 +58,7 @@ export const getDogsByName = (name) => async (dispatch) => {
 
 export const getAllTempers = () => async (dispatch) => {
   try {
-    const response = await axios(`${API_URL}/temperament`);
+    const response = await axios(`${API_URL}/dogsapp/temperament`);
     const temperaments = response.data;
     console.log(temperaments);
 
