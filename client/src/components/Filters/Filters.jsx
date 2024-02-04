@@ -43,8 +43,8 @@ function Filters() {
       </select>
 
       <select onChange={handleOrder}>
-        <option value="upwards">upwards</option>
-        <option value="downwards">downwards</option>
+        <option value="upwards">upwards (Based on the API id)</option>
+        <option value="downwards">downwards (Based on the API id)</option>
         <option value="maxWeight">max weight</option>
         <option value="minWeight">Min weight</option>
       </select>
