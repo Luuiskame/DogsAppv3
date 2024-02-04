@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const defaultImage = '/Img/dogDefault_img.png';
+export const API_URL = import.meta.env.MODE === 'development' ? 'http://localhost:3001' : 'https://dogs-appv3.vercel.app';
+
 
 //? styles
 import styles from './Detail.module.css'
@@ -13,7 +15,7 @@ function Detail(){
     const [dogs,setDogs] = useState({})
 
     useEffect(()=>{
-        axios(`http://localhost:3001/dogsapp/dogs/${id}`)
+        axios(`${API_URL}/dogsapp/dogs/${id}`)
         .then(({data})=>{
             console.log(data)
             if(data.name){
