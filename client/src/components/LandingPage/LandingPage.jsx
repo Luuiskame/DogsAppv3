@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import styles from './LandingPage.module.css'
 const apiDoc = "https://www.thedogapi.com/"
 const dogInfo = "https://www.sleddogsocietyofwales.co.uk/evolution-of-dogs.html"
+import { useNavigate } from "react-router-dom";
 
 
 function LandingPage(){
+    const navigate = useNavigate()
     return(
         <section className={styles.mainLandingContainer}>
         <nav className={styles.landingNav}>
@@ -17,7 +19,7 @@ function LandingPage(){
         <div className={styles.h1AndBtnContainer}>
         <h1 className={styles.h1Landing}> All dogs data you need directly from <span className={styles.h1Gradient}>thedogApi</span></h1>
 
-<button className={styles.takeApiBtn}><a href={apiDoc} target="_blank" rel="noopener noreferrer">Learn more</a></button>
+<button className={styles.takeApiBtn} onClick={()=> navigate('/home')}>Go home</button>
 
         </div>
 
