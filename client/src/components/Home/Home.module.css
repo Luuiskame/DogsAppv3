@@ -8,7 +8,36 @@
     justify-content: center;
     background: #00425A;
     gap: 2em;
+    position: relative;
 }
+
+
+.loading {
+    text-align: center;
+    font-size: 3rem
+}
+
+.loadingCircle {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #ffbf00; /* Yellow color */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin: 2em auto;
+
+    width: 50%;
+  }
+  
+  /* Spinner animation */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 
 .homeBtnsContainer {
     width: 90%;
@@ -41,6 +70,14 @@
         align-items: start;
         flex-wrap: wrap;
     }
+    .isLoading {
+        flex-direction: column;
+    }
+
+    .isNotLoading {
+        flex-direction: row;
+    }
+    
     .homeBtnsContainer button{
         border: none;
         min-width: max-content;

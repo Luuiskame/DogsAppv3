@@ -190,8 +190,8 @@ function CreateDogForm() {
       
       <button type="submit" className={styles.submitFormBtn} disabled={!canSubmit}>Create</button>
         
+            <button className={styles.submitFormBtn} onClick={()=> navigate('/home')}>Back to Home</button>
       </div>
-
 
 
     </form>

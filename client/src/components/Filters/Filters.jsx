@@ -32,10 +32,11 @@ function Filters() {
     }
   return (
     <div className={styles.filtersContainer}>
-      <select onChange={handleFilterDb}>
+      {/* <select onChange={handleFilterDb}>
         <option value="api">App list</option>
         <option value="db">my dogs</option>
-      </select>
+      </select> */}
+      <div className={styles.flexSelect}>
 
       <select onChange={handleAlphabeticalFilter}>
         <option value="abc">A-Z</option>
@@ -43,20 +44,28 @@ function Filters() {
       </select>
 
       <select onChange={handleOrder}>
-        <option value="upwards">upwards (Based on the API id)</option>
-        <option value="downwards">downwards (Based on the API id)</option>
+        <option value="upwards">upwards filter</option>
+        <option value="downwards">downwards filter</option>
         <option value="maxWeight">max weight</option>
         <option value="minWeight">Min weight</option>
       </select>
 
+      </div>
+
+      <div className={styles.flexSelect}>
+
       <select onChange={handleFilterByTemper}>
-                <option value="All">All</option>
+                <option value="All">All tempers</option>
            {allTempers.map((temperament, index)=>{
             return <option key={index} value={index}>{temperament}</option>
            })}
            </select>
 
            <button className={styles.resetBtn} onClick={handleReset}>reset</button>
+
+      </div>
+
+      
     </div>
   );
 }

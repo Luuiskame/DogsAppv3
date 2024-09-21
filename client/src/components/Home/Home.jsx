@@ -25,7 +25,6 @@ function Home() {
   const currentPage = useSelector((state) => state.currentPage);
   const dogsPerPage = useSelector((state) => state.dogsPerPage);
 
-  const [isDogsEmpty, setIsDogsEmpty] = useState(false); // State to track if dogs array is empty
 
   const totalPages = Math.ceil(dogs.length / dogsPerPage);
   const start = (currentPage - 1) * dogsPerPage;
@@ -54,16 +53,11 @@ function Home() {
     dispatch(getAllTempers());
   }, []);
 
-  useEffect(() => {
-    // Check if the filtered dogs array is empty
-    setIsDogsEmpty(currentDogs.length === 0);
-  }, [currentDogs]);
-
   return (
     <div className={styles.cardsContainer}>
       <Header />
-      {isDogsEmpty ? ( // Conditionally render a message when dogs array is empty
-        <div>You haven't created any dogs yet</div>
+      {currentDogs.length === 0 ? ( // Conditionally render a message when dogs array is empty
+        <div className={styles.loadingCircle}></div>
       ) : (
         currentDogs.map((dog) => (
           <Card

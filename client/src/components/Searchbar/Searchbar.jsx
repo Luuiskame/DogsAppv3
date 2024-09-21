@@ -48,7 +48,7 @@ function Searchbar() {
         <button className={styles.createDogBtn}>Create dog</button>
       </Link>
       <Link to="/">
-      <button className={styles.goLandingBtn} onClick={()=> navigate('/')}>Login</button>
+      <button className={styles.goLandingBtn} onClick={()=> navigate('/')}>Landing page</button>
       </Link>
 
     </div>

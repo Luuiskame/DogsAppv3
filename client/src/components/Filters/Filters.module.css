@@ -1,7 +1,6 @@
 /* Filters container remains aligned as flex */
 .filtersContainer {
     display: flex;
-    margin: 0.5em auto;
     width: 90%;
     gap: 0.6em;
 }
@@ -45,12 +44,22 @@ select:hover, select:focus {
 /* Hover effect for reset button */
 .resetBtn:hover {
     background-color: #ff6f33;
-    transform: scale(1.05); /* Slight grow effect */
+}
+
+.flexSelect{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: .4rem;
 }
 
 /* Media queries for wider screens */
 @media screen and (min-width: 712px) {
-    .filtersContainer {
-        margin: 0;
+    /* .filtersContainer {
+       
+    } */
+
+    .flexSelect{
+        flex-direction: row;
     }
 }
