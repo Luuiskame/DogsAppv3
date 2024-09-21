@@ -1,29 +1,56 @@
+/* Filters container remains aligned as flex */
 .filtersContainer {
     display: flex;
-    margin: .5em 0;
-    width: 90%;
     margin: 0.5em auto;
-    gap: .6em;
-    
+    width: 90%;
+    gap: 0.6em;
 }
 
+/* Styling for select inputs */
 select {
     display: block;
-    padding: .4em;
-    border-radius: 2em;
+    padding: 0.6em; /* Slightly increased padding for a nicer feel */
+    border-radius: 25px; /* Smooth and round */
+    border: 2px solid #ffbf00; /* Warm color for a dog-friendly feel */
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: border-color 0.3s, box-shadow 0.3s;
     width: 100%;
+    outline: none;
 }
 
+/* Hover and focus effect for select */
+select:hover, select:focus {
+    border-color: #ffa500;
+    box-shadow: 0 0 10px rgba(255, 191, 0, 0.5);
+}
+
+/* Reset button */
 .resetBtn {
     display: block;
-    padding: .4em;
+    padding: 0.6em; /* Match the select padding */
     border: none;
-    border-radius: 2em;
+    border-radius: 25px;
+    background-color: #ff5733;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
     width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-@media screen and (min-width: 712px){
-    .filtersContainer{
+/* Hover effect for reset button */
+.resetBtn:hover {
+    background-color: #ff6f33;
+    transform: scale(1.05); /* Slight grow effect */
+}
+
+/* Media queries for wider screens */
+@media screen and (min-width: 712px) {
+    .filtersContainer {
         margin: 0;
     }
 }

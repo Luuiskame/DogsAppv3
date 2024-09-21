@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getDogsByName, errorsNameHandler } from "../../../redux/actions";
-
 import styles from "./Searchbar.module.css";
 
 function Searchbar() {
@@ -41,7 +40,6 @@ function Searchbar() {
           <button className={styles.searchBtn} onClick={handleSearch}>
             search
           </button>
-          <button className={styles.addRandomBtn}>random</button>
         </div>
       </div>
 
@@ -50,7 +48,7 @@ function Searchbar() {
         <button className={styles.createDogBtn}>Create dog</button>
       </Link>
       <Link to="/">
-      <button className={styles.goLandingBtn}>Out</button>
+      <button className={styles.goLandingBtn} onClick={()=> navigate('/')}>Login</button>
       </Link>
 
     </div>

@@ -1,53 +1,125 @@
-/* container with all divs and the btn */
+/* Container for the entire search bar and buttons */
 .searchbarContainer {
     display: flex;
-    /* justify-content:start; */
     width: 100%;
     height: 2.5em;
+    align-items: center; /* Align elements vertically in the center */
 }
 
-.searchbarAndBtnsContainer{
+/* Container for the search bar and buttons */
+.searchbarAndBtnsContainer {
     display: flex;
     width: 70%;
+    align-items: center;
+    gap: 0.5em; /* Adds spacing between search bar and buttons */
 }
 
+/* Container for search mode buttons (search & random) */
 .searchModeContainer {
     display: flex;
     width: 50%;
     max-width: 240px;
+    gap: 0.5em;
 }
 
+/* Styling for the search bar input */
 .searchbar {
     width: 100%;
     max-width: 460px;
+    padding: 0.5em;
+    border-radius: 25px;
+    border: 2px solid #ffbf00;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.searchBtn{
+.searchbar:hover, .searchbar:focus {
+    border-color: #ffa500;
+    box-shadow: 0 0 10px rgba(255, 191, 0, 0.5);
+}
+
+/* Buttons */
+.searchBtn, .addRandomBtn {
     width: 50%;
+    padding: 0.5em;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.addRandomBtn{
-    width: 50%;
+/* Search button */
+.searchBtn {
+    background-color: #4CAF50; /* Green color for a positive action */
+    color: white;
 }
 
-.createDogAndOutContainer{
+.searchBtn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* Random button */
+.addRandomBtn {
+    background-color: #ff5733;
+    color: white;
+}
+
+.addRandomBtn:hover {
+    background-color: #ff6f33;
+    transform: scale(1.05);
+}
+
+/* Container for 'create dog' and 'out' buttons */
+.createDogAndOutContainer {
     display: flex;
-    /* width: 30%; */
-    /* margin-left: 1em; */
+    align-items: center;
+    gap: 0.5em; /* Space between the buttons */
 }
 
-.createDogBtn{
+/* 'Create dog' button */
+.createDogBtn {
+    padding: 0.5em;
+    border-radius: 25px;
+    background-color: #ffbf00;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     height: 100%;
-    /* display: block; */
 }
 
+.createDogBtn:hover {
+    background-color: #ffa500;
+    transform: scale(1.05);
+}
+
+/* 'Out' button */
 .goLandingBtn {
+    padding: 0.5em;
+    border-radius: 25px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     height: 100%;
-    /* display: block; */
 }
 
-@media screen and (min-width: 712px){
-    .searchbarContainer{
+.goLandingBtn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Media query for larger screens */
+@media screen and (min-width: 712px) {
+    .searchbarContainer {
         justify-content: start;
     }
 }

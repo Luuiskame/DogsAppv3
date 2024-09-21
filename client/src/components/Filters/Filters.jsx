@@ -33,7 +33,7 @@ function Filters() {
   return (
     <div className={styles.filtersContainer}>
       <select onChange={handleFilterDb}>
-        <option value="api">API</option>
+        <option value="api">App list</option>
         <option value="db">my dogs</option>
       </select>
 

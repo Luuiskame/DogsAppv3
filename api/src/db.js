@@ -7,11 +7,17 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST, POSTGRES_URL,
 } = process.env;
 
-const sequelize = new Sequelize(POSTGRES_URL + "?sslmode=require", {
-  dialectModule: pg,
-  logging: false, // set to console.log to see the raw SQL queries
-  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-});
+const sequelize = POSTGRES_URL
+  ? new Sequelize(POSTGRES_URL, {
+      dialect: 'postgres',
+      dialectModule: pg,
+      logging: false, // set to console.log to see the raw SQL queries
+      native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+    })
+  :  new Sequelize(
+    `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/dogsapp`,
+    {logging: false, native:false}
+)
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
